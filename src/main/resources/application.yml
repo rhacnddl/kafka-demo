@@ -1,0 +1,33 @@
+server:
+  port: 8080
+
+spring:
+  profiles:
+    active: local
+
+  kafka:
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.ByteArrayDeserializer
+      group-id: gorany
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+      properties:
+        spring:
+          json:
+            use:
+              type:
+                headers: false
+      topic:
+        create-user: create-user
+  jpa:
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
+
+logging.level:
+  org.hibernate.SQL: debug
